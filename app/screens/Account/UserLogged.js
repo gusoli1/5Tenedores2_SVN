@@ -26,7 +26,7 @@ export default function Userlogged(){
     return(
         <View style={styles.viewUserInfo}>
             <InfoUser userInfo={userInfo} setReloadData={setReloadData} toastRef={toastRef} setIsLoading={setIsLoading} settextLoading={settextLoading}/>
-            <AccountOptions/>
+            <AccountOptions userInfo={userInfo} setReloadData={setReloadData} toastRef={toastRef}/>
             <Button
                 title="Cerrar sesion"
                 //style={styles.btnContainerRegister}

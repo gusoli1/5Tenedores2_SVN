@@ -1,10 +1,15 @@
 import React , {useState} from 'react';
 import { StyleSheet, View, Text } from "react-native";
 import { ListItem } from "react-native-elements";
-import { Modal } from "../components/Modal";
+import  Modal from "../components/Modal";
+import  ChangeDisplayNameForm from "./ChangeDisplayNameForm";
+import  ChangeEmailForm from "./ChangeEmailForm";
+import  ChangePasswordForm from "./ChangePasswordForm";
 
-export default function AccountOptions () {
+export default function AccountOptions (props) {
+    const {userInfo , setReloadData , toastRef} = props;
     const [isVisibleModal, setIsVisibleModal] = useState(false);
+    const [renderComponent, setRenderComponent] = useState(null);
 
     const menuOptions = [
         {
@@ -14,8 +19,7 @@ export default function AccountOptions () {
             iconColorLeft:"#ccc",
             iconNameRight:"chevron-right",
             iconColorRight:"#ccc",
-            //onPress:()=>console.log("Change DisplayName")
-            onPress:()=>selectedComponent()
+            onPress:()=>selectedComponent("DisplayName")
         },
         {
             title:"Cambiar Email",
@@ -24,7 +28,7 @@ export default function AccountOptions () {
             iconColorLeft:"#ccc",
             iconNameRight:"chevron-right",
             iconColorRight:"#ccc",
-            onPress:()=>console.log("Change Email")
+            onPress:()=>selectedComponent("Email")
         },
         {
             title:"Cambiar Contraseña",
@@ -33,12 +37,40 @@ export default function AccountOptions () {
             iconColorLeft:"#ccc",
             iconNameRight:"chevron-right",
             iconColorRight:"#ccc",
-            onPress:()=>console.log("Change password")
+            onPress:()=>selectedComponent("Password")
         }
     ];
 
-    const selectedComponent=() => {
-        setIsVisibleModal(true);
+    const selectedComponent = key => {
+        switch (key) {
+            case "DisplayName":
+                setRenderComponent(<ChangeDisplayNameForm 
+                                        displayName={userInfo.displayName}
+                                        setIsVisibleModal={setIsVisibleModal}
+                                        setReloadData={setReloadData}
+                                        toastRef={toastRef}
+                                    />);
+                setIsVisibleModal(true);
+                break;
+            case "Email":
+                setRenderComponent(<ChangeEmailForm
+                                        email={userInfo.email}
+                                        setIsVisibleModal={setIsVisibleModal}
+                                        setReloadData={setReloadData}
+                                        toastRef={toastRef}
+                                    />)
+                setIsVisibleModal(true);
+                break;
+            case "Password":
+                setRenderComponent(<ChangePasswordForm
+                                        setIsVisibleModal={setIsVisibleModal}
+                                        toastRef={toastRef}
+                                    />)
+                setIsVisibleModal(true);
+                break;
+            default:
+                break;
+        }
     };
 
     return(
@@ -61,13 +93,12 @@ export default function AccountOptions () {
                     containerStyle={styles.menuItem}
                 />
             ))}
-            <Modal isVisible={isVisibleModal} setIsVisible={setIsVisibleModal}>
-                <View>
-                    <Text>
-                        Estoy dentro del modal
-                    </Text>
-                </View>
-            </Modal>
+            {renderComponent && 
+                (<Modal isVisible={isVisibleModal} setIsVisible={setIsVisibleModal}>
+                    {renderComponent}
+                </Modal>)
+            }
+            
         </View>
     );
 }
@@ -75,6 +106,7 @@ export default function AccountOptions () {
 const styles = StyleSheet.create({
     menuItem:{
         borderBottomWidth:1,
-        borderBottomColor:"#e3e3e3"
+        borderBottomColor:"#e3e3e3",
+        //flex:1
     }
 })

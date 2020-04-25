@@ -14,15 +14,20 @@ export default function Modal(props){
             overlayStyle = {styles.overlay}
             onBackdropPress = {closeModal}
         >
-            {children}
+            {children? children : <View><Text>Waiting for Data</Text></View>}
         </Overlay>
-    );
+    )
 }
 
 const styles = StyleSheet.create ({
     overlay :{
+        backgroundColor:"#fff",
         height:"auto",
         width:"90%",
-        backgroundColor:"#fff"
+        //backgroundColor:"transparent",
+        //flex:1,
+        //width:"90%",
+        //height:"45%",
+        //alignContent:"center"
     }
 });
