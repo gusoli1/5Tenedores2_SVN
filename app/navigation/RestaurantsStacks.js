@@ -4,7 +4,7 @@ import AddRestaurantScreeen from "../screens/Restaurants/AddRestaurant";
 
 export const RestaurantsScreenStacks = createStackNavigator(
     {
-        Reustarants:{
+        Restaurants:{
             screen : RestaurantsScreen,
             navigationOptions: () => ({
                 title: "Restaurantes",

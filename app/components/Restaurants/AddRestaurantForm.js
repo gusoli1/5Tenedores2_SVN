@@ -6,7 +6,6 @@ import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import MapView from "react-native-maps";
 import Modal from "../../components/Modal";
-//import uuid from "uuid/v3";
 import uuid from "random-uuid-v4";
 import { firebaseApp } from "../../utils/FireBase";
 import firebase from "firebase/app";
@@ -34,29 +33,28 @@ export default function AddRestaurantForm (props){
                 toastRef.current.show("Debe agregar la geolocalizacion")
             } else {
                 setIsLoading(true);
-                UploadImageStorage(imagesSelected).then(arrayImages => {
-                    db.collection("Restaurants")
-                        .add({
-                        name: restaurantName,
-                        address: restaurantAddress,
-                        description: restaurantDescription,
-                        location: locationRestaurant,
-                        image: arrayImages,
-                        rating: 0,
-                        ratingTotal: 0,
-                        quantityVoting: 0,
-                        createAt: new Date(),
-                        createBy: firebaseApp.auth().currentUser.uid
-                    })
-                    .then(() => {
-                        setIsLoading(false);
-                        navigation.navigate("Restaurants");
-                    })
-                    .catch(error => {
-                        setIsLoading(false);
-                        toastRef.current.show("Error al subir el restaurante");
-                        console.log(error);
-                    });
+                UploadImageStorage(imagesSelected)
+                    .then(arrayImages => {
+                        db.collection("Restaurants")
+                            .add({name: restaurantName,
+                                    address: restaurantAddress,
+                                    description: restaurantDescription,
+                                    location: locationRestaurant,
+                                    image: arrayImages,
+                                    rating: 0,
+                                    ratingTotal: 0,
+                                    quantityVoting: 0,
+                                    createAt: new Date(),
+                                    createBy: firebaseApp.auth().currentUser.uid
+                            })
+                        .then(() => {setIsLoading(false);
+                                    navigation.navigate("Restaurants");
+                        })
+                        .catch(error => {console.log(error);
+                                        console.log("Errorrrrrr!!!!!")
+                                        setIsLoading(false);
+                                        toastRef.current.show("Error al subir el restaurante");
+                        });
                 });
             }
     };
@@ -68,7 +66,7 @@ export default function AddRestaurantForm (props){
                                             const blob = await response.blob();
                                             const ref = firebase
                                                     .storage()
-                                                    .ref("restaurantImages")
+                                                    .ref("restaurant-images")
                                                     .child(uuid());
                                             await ref.put(blob).then(result => {
                                                 imagesBlob.push(result.metadata.name)
