@@ -40,7 +40,7 @@ export default function Userlogged(){
                     style = {{backgroundColor : 'white' }}
                     textStyle = {{color : 'black' }}
                     position = 'top' />
-            <Loading text={textLoading} isVisible={isLoading}/>
+            <Loading text={"Actualizando avatar"} isVisible={isLoading}/>
         </View>
 
     )

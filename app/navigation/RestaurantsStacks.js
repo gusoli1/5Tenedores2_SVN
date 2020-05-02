@@ -1,6 +1,8 @@
 import {createStackNavigator} from 'react-navigation-stack'
 import RestaurantsScreen from "../screens/Restaurants";
 import AddRestaurantScreeen from "../screens/Restaurants/AddRestaurant";
+import RestaurantScreen from "../screens/Restaurants/Restaurant";
+import AddReviewRestaurantScreen from "../screens/Restaurants/AddReviewRestaurant";
 
 export const RestaurantsScreenStacks = createStackNavigator(
     {
@@ -15,7 +17,19 @@ export const RestaurantsScreenStacks = createStackNavigator(
         AddRestaurant:{
             screen: AddRestaurantScreeen,
             navigationOptions:() =>({
-                title: "Nuevo Restaurante"
+                title: "Nuevo Restaurant"
+            })
+        },
+        Restaurant:{
+            screen: RestaurantScreen,
+            navigationOptions:(props) =>({
+                title: props.navigation.state.params.restaurant.item.restaurant.name
+            })
+        },
+        AddReviewRestaurant:{
+            screen: AddReviewRestaurantScreen,
+            navigationOptions:() =>({
+                title:"Nuevo comentario"
             })
         }
     },
