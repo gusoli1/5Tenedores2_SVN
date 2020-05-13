@@ -6,7 +6,7 @@ import * as firebase from "firebase";
 export default function ListRestaurants(props) {
     const {restaurants, isLoading, hadleLoadMore , navigation} = props;
 
-    console.log(restaurants);
+    //console.log(restaurants);
     
     return(
         <View>

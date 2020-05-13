@@ -9,7 +9,6 @@ const db = firebase.firestore(firebaseApp);
 
 export default function Restaurants (props) {
     const {navigation} = props;
-
     const [user , setUser] = useState(null);
     const [restaurants, setRestaurants] = useState([]);
     const [startRestaurants, setStartRestaurants] = useState(null);

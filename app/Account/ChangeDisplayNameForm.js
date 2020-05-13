@@ -20,9 +20,9 @@ export default function ChangeDisplayNameForm(props){
             }
             firebase.auth().currentUser.updateProfile(update).then(() => {
                 setIsLoading(false);
-                console.log("aca2");
+                //console.log("aca2");
                 setReloadData(true);
-                console.log("aca3");
+                //console.log("aca3");
                 toastRef.current.show("Nombre actualizado");
                 setIsVisibleModal(false)
             }).catch(() => {
